@@ -2,6 +2,7 @@
 import { Dropdown } from "@/app/components/dropdown";
 import { useState } from "react";
 import { translate } from "@/app/actions/translate";
+import VoiceRecorder from '@/app/components/voice-recorder';
 
 const languageOptions = [
   {
@@ -78,7 +79,10 @@ export default function Home() {
               />
             </div>
           </div>
-          <button type='submit' className="p-3 rounded-md bg-slate-800 text-white mt-4">Translate</button>
+          <div className="flex flex-row items-center gap-2 h-16">
+            <button type='submit' className="p-3 rounded-md bg-slate-800 text-white">Translate</button>
+            {languageFrom === "en" && <VoiceRecorder />}
+          </div>
         </form>
       </main>
     </div >
