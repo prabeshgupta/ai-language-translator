@@ -1,7 +1,7 @@
 import { Mic, Square } from 'lucide-react';
 import { useRef, useState } from 'react';
 
-export default function VoiceRecorder() {
+export default function VoiceRecorder({ handleSetText }) {
     const [isRecording, setIsRecording] = useState(false);
     const [audioBase64, setAudioBase64] = useState(null);
     const mediaRecorderRef = useRef(null);
@@ -23,10 +23,21 @@ export default function VoiceRecorder() {
                 })
                 const reader = new FileReader();
                 reader.readAsDataURL(audioBlob);
-                reader.onloadend = () => {
+                reader.onloadend = async () => {
                     const base64Audio = reader.result;
                     //Takes the actual data from the base64 string from ['data:audio/wav;base64', 'ACTUALBASE64DATAHERE']
                     setAudioBase64(base64Audio.split(',')[1]);
+
+                    //Working on Transcribe
+                    const formData = new FormData();
+                    formData.append('audio', base64Audio.split(',')[1]);
+                    const response = await fetch('/api/transcribe', {
+                        method: 'POST',
+                        body: formData,
+                    });
+                    const result = await response.json();
+                    console.log("Audio uploaded successfully", result);
+                    handleSetText(result.result);
                 }
                 chunksRef.current = [];
             }

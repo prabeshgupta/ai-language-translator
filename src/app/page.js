@@ -25,7 +25,7 @@ const languageOptions = [
 
 export default function Home() {
   const [languageFrom, setLanguageFrom] = useState("en");
-  const [languageTo, setLanguageTo] = useState("fr");
+  const [languageTo, setLanguageTo] = useState("es");
 
   const [inputText, setInputText] = useState("");
   const [translatedText, setTranslatedText] = useState("");
@@ -41,6 +41,16 @@ export default function Home() {
   const handleInputChange = (e) => {
     const newText = e.target.value;
     setInputText(newText);
+  }
+
+  const handleInputSet = async (value) => {
+    setInputText(value);
+    //   const formData = new FormData();
+    //   formData.append('text', value)
+    //   formData.append('languageTo', languageTo)
+    //   formData.append('languageFrom', languageFrom)
+    //   const translation = await translate(formData);
+    //   setTranslatedText(translation.translation);
   }
 
   return (
@@ -81,7 +91,7 @@ export default function Home() {
           </div>
           <div className="flex flex-row items-center gap-2 h-16">
             <button type='submit' className="p-3 rounded-md bg-slate-800 text-white">Translate</button>
-            {languageFrom === "en" && <VoiceRecorder />}
+            {languageFrom === "en" && <VoiceRecorder handleSetText={handleInputSet} />}
           </div>
         </form>
       </main>
