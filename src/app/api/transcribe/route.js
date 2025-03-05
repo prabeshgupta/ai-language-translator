@@ -4,7 +4,7 @@ export async function POST(request) {
     const formData = await request.formData();
     const audioFile = formData.get("audio");
 
-    const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GOOGLE_GEMINI_API_KEY);
+    const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({
         model: "gemini-1.5-flash",
     });

@@ -2,7 +2,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai"
 
 async function translateText(text, targetLanguage, languageFrom = "") {
-    const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GOOGLE_GEMINI_API_KEY);
+    const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const prompt = languageFrom ? `Translate from ${languageFrom} to ${targetLanguage}: ${text}` : `Detect the language of the text and translate it to ${targetLanguage}: ${text}`;

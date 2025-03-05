@@ -3,6 +3,7 @@ import { Dropdown } from "@/app/components/dropdown";
 import { useState } from "react";
 import { translate } from "@/app/actions/translate";
 import VoiceRecorder from '@/app/components/voice-recorder';
+import SaveBtn from "@/app/components/save-translation-btn";
 
 const languageOptions = [
   {
@@ -29,6 +30,12 @@ export default function Home() {
 
   const [inputText, setInputText] = useState("");
   const [translatedText, setTranslatedText] = useState("");
+
+  const [isSaved, setIsSaved] = useState(true);
+
+  const onSave = () => {
+    setIsSaved(true);
+  }
 
   const handleLanguageFromChange = (value) => {
     setLanguageFrom(value);
@@ -59,6 +66,9 @@ export default function Home() {
         <form action={async (formData) => {
           const result = await translate(formData);
           setTranslatedText(result.translation);
+          if (isSaved) {
+            setIsSaved(false)
+          }
         }}>
           <div className="flex flex-row gap-4">
             <div className="container flex flex-col">
@@ -76,11 +86,21 @@ export default function Home() {
               />
             </div>
             <div className="container flex flex-col">
-              <Dropdown
-                name='targetLanguage'
-                options={languageOptions}
-                value={languageTo}
-                onChange={handleLanguageToChange} />
+              <div className="justify-between flex">
+                <Dropdown
+                  name='targetLanguage'
+                  options={languageOptions}
+                  value={languageTo}
+                  onChange={handleLanguageToChange} />
+                <SaveBtn
+                  sourceLan={languageFrom}
+                  targetLan={languageTo}
+                  sourceText={inputText}
+                  translatedText={translatedText}
+                  onHandleSave={onSave}
+                  isSaved={isSaved}
+                />
+              </div>
               <textarea
                 placeholder="Translated text shows up here"
                 className="border border-slate-800 rounded-md p-4 lg:w-[400px]"
