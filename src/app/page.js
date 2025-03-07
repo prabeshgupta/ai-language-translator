@@ -21,6 +21,42 @@ const languageOptions = [
   {
     value: "es",
     label: "Spanish"
+  },
+  {
+    value: "np",
+    label: "Nepali"
+  },
+  {
+    value: "in",
+    label: "Hindi"
+  },
+  {
+    value: "ch",
+    label: "Chinese"
+  },
+  {
+    value: "jp",
+    label: "Japanese"
+  },
+  {
+    value: "kr",
+    label: "Korean"
+  },
+  {
+    value: "it",
+    label: "Italian"
+  },
+  {
+    value: "ru",
+    label: "Russian"
+  },
+  {
+    value: "ar",
+    label: "Arabic"
+  },
+  {
+    value: "pt",
+    label: "Portuguese"
   }
 ]
 
